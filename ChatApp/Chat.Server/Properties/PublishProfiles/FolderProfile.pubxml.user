@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\GithubProje\ChatApp\Chat.Server\bin\Release\net8.0\publish\</_PublishTargetUrl>
-    <History>True|2025-09-14T10:22:21.0760209Z||;True|2025-09-14T13:10:20.3735391+03:00||;True|2025-09-14T12:39:58.5181111+03:00||;True|2025-09-14T11:44:12.8903580+03:00||;True|2025-09-13T22:45:22.1547850+03:00||;True|2025-09-13T22:37:38.7126207+03:00||;</History>
+    <History>True|2025-09-14T11:16:17.4441276Z||;True|2025-09-14T13:22:21.0760209+03:00||;True|2025-09-14T13:10:20.3735391+03:00||;True|2025-09-14T12:39:58.5181111+03:00||;True|2025-09-14T11:44:12.8903580+03:00||;True|2025-09-13T22:45:22.1547850+03:00||;True|2025-09-13T22:37:38.7126207+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

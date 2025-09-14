@@ -6,14 +6,6 @@ namespace Chat.Client
     partial class AuthForm
     {
         private System.ComponentModel.IContainer components = null;
-
-        private Label lblTitle;
-        private Label lblUser;
-        private TextBox txtUser;
-        private Label lblPass;
-        private TextBox txtPass;
-        private Button btnLogin;
-        private Button btnRegister;
         private Label lblStatus;
 
         protected override void Dispose(bool disposing)
@@ -24,96 +16,172 @@ namespace Chat.Client
 
         private void InitializeComponent()
         {
-            lblTitle = new Label();
-            lblUser = new Label();
-            txtUser = new TextBox();
-            lblPass = new Label();
-            txtPass = new TextBox();
-            btnLogin = new Button();
-            btnRegister = new Button();
             lblStatus = new Label();
+            btnLogin = new ReaLTaiizor.Controls.MaterialButton();
+            btnRegister = new ReaLTaiizor.Controls.MaterialButton();
+            txtPass = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            lblPass = new ReaLTaiizor.Controls.MaterialLabel();
+            txtUser = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            lblUser = new ReaLTaiizor.Controls.MaterialLabel();
             SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            lblTitle.Location = new Point(100, 38);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(48, 23);
-            lblTitle.TabIndex = 0;
-            lblTitle.Text = "Login";
-            // 
-            // lblUser
-            // 
-            lblUser.Location = new Point(49, 101);
-            lblUser.Name = "lblUser";
-            lblUser.Size = new Size(156, 23);
-            lblUser.TabIndex = 3;
-            lblUser.Text = "Kullanıcı Adı";
-            // 
-            // txtUser
-            // 
-            txtUser.Location = new Point(49, 127);
-            txtUser.Name = "txtUser";
-            txtUser.Size = new Size(156, 27);
-            txtUser.TabIndex = 4;
-            // 
-            // lblPass
-            // 
-            lblPass.Location = new Point(49, 187);
-            lblPass.Name = "lblPass";
-            lblPass.Size = new Size(150, 21);
-            lblPass.TabIndex = 5;
-            lblPass.Text = "Şifre";
-            // 
-            // txtPass
-            // 
-            txtPass.Location = new Point(49, 211);
-            txtPass.Name = "txtPass";
-            txtPass.Size = new Size(150, 27);
-            txtPass.TabIndex = 6;
-            // 
-            // btnLogin
-            // 
-            btnLogin.Location = new Point(49, 258);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(75, 37);
-            btnLogin.TabIndex = 7;
-            btnLogin.Text = "Giriş Yap";
-            // 
-            // btnRegister
-            // 
-            btnRegister.Location = new Point(130, 258);
-            btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(75, 37);
-            btnRegister.TabIndex = 8;
-            btnRegister.Text = "Kayıt Ol";
             // 
             // lblStatus
             // 
-            lblStatus.Location = new Point(78, 309);
+            lblStatus.Location = new Point(178, 416);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(100, 23);
+            lblStatus.Size = new Size(144, 25);
             lblStatus.TabIndex = 9;
+            // 
+            // btnLogin
+            // 
+            btnLogin.AutoSize = false;
+            btnLogin.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnLogin.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnLogin.Depth = 0;
+            btnLogin.HighEmphasis = true;
+            btnLogin.Icon = null;
+            btnLogin.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnLogin.Location = new Point(122, 287);
+            btnLogin.Margin = new Padding(4, 6, 4, 6);
+            btnLogin.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnLogin.Name = "btnLogin";
+            btnLogin.NoAccentTextColor = Color.Empty;
+            btnLogin.Size = new Size(251, 51);
+            btnLogin.TabIndex = 10;
+            btnLogin.Text = "Giriş Yap";
+            btnLogin.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnLogin.UseAccentColor = false;
+            btnLogin.UseVisualStyleBackColor = true;
+            // 
+            // btnRegister
+            // 
+            btnRegister.AutoSize = false;
+            btnRegister.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnRegister.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnRegister.Depth = 0;
+            btnRegister.HighEmphasis = true;
+            btnRegister.Icon = null;
+            btnRegister.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnRegister.Location = new Point(153, 350);
+            btnRegister.Margin = new Padding(4, 6, 4, 6);
+            btnRegister.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnRegister.Name = "btnRegister";
+            btnRegister.NoAccentTextColor = Color.Empty;
+            btnRegister.Size = new Size(193, 45);
+            btnRegister.TabIndex = 11;
+            btnRegister.Text = "Kayıt Ol";
+            btnRegister.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnRegister.UseAccentColor = false;
+            btnRegister.UseVisualStyleBackColor = true;
+            // 
+            // txtPass
+            // 
+            txtPass.AnimateReadOnly = false;
+            txtPass.AutoCompleteMode = AutoCompleteMode.None;
+            txtPass.AutoCompleteSource = AutoCompleteSource.None;
+            txtPass.BackgroundImageLayout = ImageLayout.None;
+            txtPass.CharacterCasing = CharacterCasing.Normal;
+            txtPass.Depth = 0;
+            txtPass.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPass.HideSelection = true;
+            txtPass.LeadingIcon = null;
+            txtPass.Location = new Point(122, 210);
+            txtPass.MaxLength = 32767;
+            txtPass.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtPass.Name = "txtPass";
+            txtPass.PasswordChar = '\0';
+            txtPass.PrefixSuffixText = null;
+            txtPass.ReadOnly = false;
+            txtPass.RightToLeft = RightToLeft.No;
+            txtPass.SelectedText = "";
+            txtPass.SelectionLength = 0;
+            txtPass.SelectionStart = 0;
+            txtPass.ShortcutsEnabled = true;
+            txtPass.Size = new Size(251, 48);
+            txtPass.TabIndex = 12;
+            txtPass.TabStop = false;
+            txtPass.TextAlign = HorizontalAlignment.Left;
+            txtPass.TrailingIcon = null;
+            txtPass.UseSystemPasswordChar = false;
+            // 
+            // lblPass
+            // 
+            lblPass.AutoSize = true;
+            lblPass.Depth = 0;
+            lblPass.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            lblPass.Location = new Point(122, 188);
+            lblPass.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(34, 19);
+            lblPass.TabIndex = 13;
+            lblPass.Text = "Şifre";
+            // 
+            // txtUser
+            // 
+            txtUser.AnimateReadOnly = false;
+            txtUser.AutoCompleteMode = AutoCompleteMode.None;
+            txtUser.AutoCompleteSource = AutoCompleteSource.None;
+            txtUser.BackgroundImageLayout = ImageLayout.None;
+            txtUser.CharacterCasing = CharacterCasing.Normal;
+            txtUser.Depth = 0;
+            txtUser.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtUser.HideSelection = true;
+            txtUser.LeadingIcon = null;
+            txtUser.Location = new Point(122, 120);
+            txtUser.MaxLength = 32767;
+            txtUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtUser.Name = "txtUser";
+            txtUser.PasswordChar = '\0';
+            txtUser.PrefixSuffixText = null;
+            txtUser.ReadOnly = false;
+            txtUser.RightToLeft = RightToLeft.No;
+            txtUser.SelectedText = "";
+            txtUser.SelectionLength = 0;
+            txtUser.SelectionStart = 0;
+            txtUser.ShortcutsEnabled = true;
+            txtUser.Size = new Size(251, 48);
+            txtUser.TabIndex = 14;
+            txtUser.TabStop = false;
+            txtUser.TextAlign = HorizontalAlignment.Left;
+            txtUser.TrailingIcon = null;
+            txtUser.UseSystemPasswordChar = false;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Depth = 0;
+            lblUser.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            lblUser.Location = new Point(122, 98);
+            lblUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(89, 19);
+            lblUser.TabIndex = 15;
+            lblUser.Text = "Kullanıcı Adı";
             // 
             // AuthForm
             // 
-            AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(257, 386);
-            Controls.Add(lblTitle);
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(501, 474);
             Controls.Add(lblUser);
             Controls.Add(txtUser);
             Controls.Add(lblPass);
             Controls.Add(txtPass);
-            Controls.Add(btnLogin);
             Controls.Add(btnRegister);
+            Controls.Add(btnLogin);
             Controls.Add(lblStatus);
             Name = "AuthForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Login / Register";
+            Text = "Chatliyo | Login";
             ResumeLayout(false);
             PerformLayout();
         }
+        private ReaLTaiizor.Controls.MaterialButton btnLogin;
+        private ReaLTaiizor.Controls.MaterialButton btnRegister;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPass;
+        private ReaLTaiizor.Controls.MaterialLabel lblPass;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtUser;
+        private ReaLTaiizor.Controls.MaterialLabel lblUser;
     }
 }
