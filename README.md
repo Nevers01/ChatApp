@@ -1,25 +1,23 @@
-ChatApp
+# ChatApp
 
-📡 ChatApp, SignalR tabanlı gerçek zamanlı sohbet uygulamasıdır.
-Hem WinForms Client (C# .NET 8) hem de Web API Server (ASP.NET Core + EF Core) içerir.
+📡 **ChatApp**, SignalR tabanlı **gerçek zamanlı sohbet uygulaması**dır.  
+Hem **WinForms Client (C# .NET 8)** hem de **Web API Server (ASP.NET Core + EF Core)** içerir.  
 
-🚀 Özellikler
+---
 
-🔐 Kullanıcı Kayıt & Giriş (Auth)
+## 🚀 Özellikler
+- 🔐 Kullanıcı Kayıt & Giriş (Auth)
+- 💬 Gerçek zamanlı mesajlaşma (SignalR)
+- 👥 Odalara Katılma (Random veya seçili)
+- 📜 Mesaj geçmişi veritabanında saklanır
+- 👤 Online kullanıcı listesi (oda bazlı)
+- 🎨 Modern WinForms arayüz (ReaLTaiizor UI kütüphanesi)
+- 📦 Dağıtım için **Setup (MSI)** projesi mevcut
 
-💬 Gerçek zamanlı mesajlaşma (SignalR)
+---
 
-👥 Odalara Katılma (Random veya seçili)
-
-📜 Mesaj geçmişi DB’de saklanır
-
-👤 Online kullanıcı listesi (oda bazlı)
-
-🎨 Modern WinForms arayüz (ReaLTaiizor UI kütüphanesi)
-
-📦 Dağıtım için Setup (MSI) projesi mevcut
-
-🗂 Proje Yapısı
+## 🗂 Proje Yapısı
+```
 ChatApp/
 │
 ├── Chat.Client         → WinForms Client (exe olarak dağıtılır)
@@ -28,59 +26,56 @@ ChatApp/
 ├── Chat.Domain         → Entity modelleri
 ├── Chat.Contracts      → Shared DTO’lar
 └── ChatLiyoSetup       → MSI kurulum projesi
+```
 
-⚙️ Kullanılan Teknolojiler
+---
 
-.NET 8
+## ⚙️ Kullanılan Teknolojiler
+- .NET 8
+- ASP.NET Core Web API
+- SignalR
+- Entity Framework Core
+- WinForms (ReaLTaiizor UI)
+- MSSQL
 
-ASP.NET Core Web API
+---
 
-SignalR
+## 📸 Ekran Görüntüleri
+> Buraya login form ve chat ekranı screenshotlarını ekleyebilirsin:  
+```md
+![Login] https://prnt.sc/l1jUmTiuGQqm
+![Chat] https://prnt.sc/yWTWtXSme6AO
+```
 
-Entity Framework Core
+---
 
-WinForms (ReaLTaiizor UI)
+## 🔧 Kurulum
+1. Repo’yu klonla:
+   ```bash
+   git clone https://github.com/Nevers01/ChatApp.git
+   ```
 
-MSSQL
+2. **Server** tarafını çalıştır:
+   ```bash
+   cd Chat.Server
+   dotnet run
+   ```
+   > Varsayılan port: **http://localhost:5000**
 
-📸 Ekran Görüntüleri
+3. **Client** tarafını aç:
+   - `Chat.Client` → **F5** ile çalıştırılabilir
+   - veya `ChatLiyoSetup` → MSI kurup masaüstünden çalıştırabilirsin.
 
-(buraya senin attığın login form, chat ekranı screenshotlarını ekleyebiliriz)
+---
 
-🔧 Kurulum
+## 📝 Yol Haritası
+- [ ] Web Client (Blazor/Web UI) desteği
+- [ ] Emoji & Dosya gönderme
+- [ ] JWT ile gerçek token tabanlı auth
+- [ ] Docker compose (Server + DB)
 
-Repo’yu klonla:
+---
 
-git clone https://github.com/Nevers01/ChatApp.git
-
-
-Server tarafını çalıştır:
-
-cd Chat.Server
-dotnet run
-
-
-Varsayılan port: http://localhost:5000
-
-Client tarafını aç:
-
-Chat.Client → F5 ile çalıştırabilir
-
-veya ChatLiyoSetup → MSI kurup masaüstünden çalıştırabilirsin.
-
-📝 Yol Haritası
-
- Web Client (Blazor/Web UI) desteği
-
- Emoji & Dosya gönderme
-
- JWT ile gerçek token tabanlı auth
-
- Docker compose (Server + DB)
-
-👤 Yazar
-
-Alperen “NeversCoder” Dagül
-📌 YouTube
- | GitHub
- | CodeBucks
+## 👤 Yazar
+**Alperen “NeversCoder” Dağül**  
+📌 [YouTube](https://youtube.com/@neverscoder) | [GitHub](https://github.com/Nevers01) | [CodeBucks](https://codebucks.com.tr)
