@@ -42,8 +42,8 @@ ChatApp/
 
 ## 📸 Ekran Görüntüleri
 
-[Login] https://prnt.sc/l1jUmTiuGQqm
-[Chat] https://prnt.sc/yWTWtXSme6AO
+- [Login] https://prnt.sc/l1jUmTiuGQqm
+- [Chat] https://prnt.sc/yWTWtXSme6AO
 
 
 ---
