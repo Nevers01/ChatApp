@@ -1,0 +1,12 @@
+D:\GithubProje\ChatApp\Chat.Domain\bin\Release\net8.0\Chat.Domain.deps.json
+D:\GithubProje\ChatApp\Chat.Domain\bin\Release\net8.0\Chat.Domain.dll
+D:\GithubProje\ChatApp\Chat.Domain\bin\Release\net8.0\Chat.Domain.pdb
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.AssemblyInfoInputs.cache
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.AssemblyInfo.cs
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.csproj.CoreCompileInputs.cache
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.sourcelink.json
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.dll
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\refint\Chat.Domain.dll
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\Chat.Domain.pdb
+D:\GithubProje\ChatApp\Chat.Domain\obj\Release\net8.0\ref\Chat.Domain.dll

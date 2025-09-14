@@ -1,0 +1,12 @@
+D:\GithubProje\ChatApp\Chat.Contracts\bin\Debug\net8.0\Chat.Contracts.deps.json
+D:\GithubProje\ChatApp\Chat.Contracts\bin\Debug\net8.0\Chat.Contracts.dll
+D:\GithubProje\ChatApp\Chat.Contracts\bin\Debug\net8.0\Chat.Contracts.pdb
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.AssemblyInfoInputs.cache
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.AssemblyInfo.cs
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.csproj.CoreCompileInputs.cache
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.sourcelink.json
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.dll
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\refint\Chat.Contracts.dll
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\Chat.Contracts.pdb
+D:\GithubProje\ChatApp\Chat.Contracts\obj\Debug\net8.0\ref\Chat.Contracts.dll
