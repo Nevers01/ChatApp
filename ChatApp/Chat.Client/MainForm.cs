@@ -17,7 +17,7 @@ namespace Chat.Client
         private HubConnection? _conn;
         private Guid? _roomId;
 
-        // HTTP JSON deserialize için ortak ayar (camelCase uyumsuzluğu çözülür)
+        // HTTP JSON deserialize için ortak ayar (camelCase)
         private static readonly JsonSerializerOptions JsonOpts =
             new() { PropertyNameCaseInsensitive = true };
 
@@ -26,6 +26,9 @@ namespace Chat.Client
             _userId = userId;
             _baseUrl = baseUrl;
             InitializeComponent();
+
+            // enter ile gönderme
+            txtInput.KeyDown += TxtInput_KeyDown;
 
             btnSend.Enabled = false; // Join olmadan kapalı
 
@@ -50,7 +53,7 @@ namespace Chat.Client
                 }
                 catch (Exception ex)
                 {
-                    lstMessages.Items.Add($"[Hata] {ex.Message}");
+                    AddSystem($"Hata: {ex.Message}");
                 }
             };
 
@@ -67,30 +70,46 @@ namespace Chat.Client
                 }
                 catch (Exception ex)
                 {
-                    lstMessages.Items.Add($"[Hata] {ex.Message}");
+                    AddSystem($"Hata: {ex.Message}");
                 }
             };
 
-            btnSend.Click += async (_, __) =>
+            btnSend.Click += async (_, __) => await SendFromInputAsync();
+        }
+
+        // ENTER = gönder, CTRL+ENTER = yeni satır
+        private async void TxtInput_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !e.Control)
             {
-                try
-                {
-                    if (_conn is null || _conn.State != HubConnectionState.Connected)
-                    {
-                        lstMessages.Items.Add("[Hata] Hub bağlı değil.");
-                        return;
-                    }
-                    if (_roomId is null || string.IsNullOrWhiteSpace(txtInput.Text))
-                        return;
+                e.SuppressKeyPress = true; // ding sesini engelle
+                await SendFromInputAsync();
+            }
+            else if (e.KeyCode == Keys.Enter && e.Control)
+            {
+                // çok satırlı ise yeni satır ekleyebilirsin; tek satırlı textbox'ta gerek yok
+            }
+        }
 
-                    await _conn.InvokeAsync("SendMessage", _userId, _roomId.Value, txtInput.Text);
-                    txtInput.Clear();
-                }
-                catch (Exception ex)
+        private async Task SendFromInputAsync()
+        {
+            try
+            {
+                if (_conn is null || _conn.State != HubConnectionState.Connected)
                 {
-                    lstMessages.Items.Add($"[Hata] {ex.Message}");
+                    AddSystem("Hub bağlı değil.");
+                    return;
                 }
-            };
+                if (_roomId is null || string.IsNullOrWhiteSpace(txtInput.Text))
+                    return;
+
+                await _conn.InvokeAsync("SendMessage", _userId, _roomId.Value, txtInput.Text);
+                txtInput.Clear();
+            }
+            catch (Exception ex)
+            {
+                AddSystem($"Hata: {ex.Message}");
+            }
         }
 
         private async Task ConnectHub()
@@ -99,21 +118,19 @@ namespace Chat.Client
                 .WithUrl($"{_baseUrl}/hub/chat")
                 .AddJsonProtocol(o =>
                 {
-                    // SignalR mesajlarında da camelCase <-> PascalCase farkını tolere et
                     o.PayloadSerializerOptions.PropertyNameCaseInsensitive = true;
-                    // İstersen: o.PayloadSerializerOptions.PropertyNamingPolicy = null;
                 })
                 .WithAutomaticReconnect()
                 .Build();
 
             _conn.On<MessageDto>("Message", msg =>
             {
-                BeginInvoke(() => lstMessages.Items.Add($"{msg.UserName}: {msg.Text}"));
+                BeginInvoke(() => AddChat(msg.UserName, msg.Text));
             });
 
             _conn.On<string>("SystemInfo", s =>
             {
-                BeginInvoke(() => lstMessages.Items.Add($"[Sistem] {s}"));
+                BeginInvoke(() => AddSystem(s));
             });
 
             _conn.On<System.Collections.Generic.List<UserDto>>("UserList", users =>
@@ -127,21 +144,25 @@ namespace Chat.Client
 
             _conn.Closed += async (ex) =>
             {
-                BeginInvoke(() => lstMessages.Items.Add("[Sistem] Hub bağlantısı kapandı, yeniden deneniyor..."));
+                BeginInvoke(() =>
+                {
+                    btnSend.Enabled = false;
+                    AddSystem("Hub bağlantısı kapandı, yeniden deneniyor...");
+                });
             };
 
             _conn.Reconnected += (id) =>
             {
                 BeginInvoke(() =>
                 {
-                    lstMessages.Items.Add("[Sistem] Hub yeniden bağlandı.");
+                    AddSystem("Hub yeniden bağlandı.");
                     if (_roomId != null) btnSend.Enabled = true;
                 });
                 return Task.CompletedTask;
             };
 
             await _conn.StartAsync();
-            lstMessages.Items.Add("[Sistem] Hub bağlantısı kuruldu.");
+            AddSystem("Hub bağlantısı kuruldu.");
         }
 
         private async Task LoadRooms()
@@ -160,15 +181,37 @@ namespace Chat.Client
         {
             if (_conn is null || _conn.State != HubConnectionState.Connected)
             {
-                lstMessages.Items.Add("[Hata] Hub bağlı değil (join).");
+                AddSystem("Hub bağlı değil (join).");
                 return;
             }
 
             _roomId = roomId;
             lstMessages.Items.Clear();
             await _conn.InvokeAsync("JoinRoom", _userId, roomId);
-            lstMessages.Items.Add($"[Sistem] Odaya katıldın: {roomName}");
+            AddSystem($"Odaya katıldın: {roomName}");
             btnSend.Enabled = true;
+            txtInput.Focus(); // odak inputa
+        }
+
+        // === UI yardımcıları ===
+        private void AddChat(string user, string text)
+        {
+            lstMessages.Items.Add($"{user}: {text}");
+            ScrollMessagesToBottom();
+        }
+
+        private void AddSystem(string text)
+        {
+            lstMessages.Items.Add($"[Sistem] {text}");
+            ScrollMessagesToBottom();
+        }
+
+        private void ScrollMessagesToBottom()
+        {
+            // otomatik en alta kaydır
+            var count = lstMessages.Items.Count;
+            if (count > 0)
+                lstMessages.TopIndex = count - 1;
         }
 
         private record ComboItem(Guid Id, string Text)

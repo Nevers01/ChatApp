@@ -59,7 +59,7 @@ namespace Chat.Server.Hubs
                     prevSet.TryRemove(prev.UserId, out _);
                     await SendUserList(prev.RoomId);
                     // Ayrılanın adını da göstermek istersen DB'den çekebilirsin
-                    await Clients.Group(prev.RoomId.ToString()).SendAsync("SystemInfo", $"Kullanıcı ayrıldı");
+                    await Clients.Group(prev.RoomId.ToString()).SendAsync("SystemInfo", $"Kullanıcı {name} ayrıldı");
                 }
             }
 
