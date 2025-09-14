@@ -55,7 +55,7 @@ namespace Chat.Client
             txtInput.BackgroundImageLayout = ImageLayout.None;
             txtInput.CharacterCasing = CharacterCasing.Normal;
             txtInput.Depth = 0;
-            txtInput.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtInput.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtInput.HideSelection = true;
             txtInput.LeadingIcon = null;
             txtInput.Location = new Point(12, 492);
@@ -82,7 +82,7 @@ namespace Chat.Client
             lstMessages.BackColor = Color.White;
             lstMessages.BorderColor = Color.LightGray;
             lstMessages.Depth = 0;
-            lstMessages.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            lstMessages.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             lstMessages.Location = new Point(12, 12);
             lstMessages.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             lstMessages.Name = "lstMessages";
@@ -96,7 +96,7 @@ namespace Chat.Client
             lstUsers.BackColor = Color.White;
             lstUsers.BorderColor = Color.LightGray;
             lstUsers.Depth = 0;
-            lstUsers.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            lstUsers.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             lstUsers.Location = new Point(846, 12);
             lstUsers.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             lstUsers.Name = "lstUsers";
@@ -184,7 +184,7 @@ namespace Chat.Client
             Margin = new Padding(3, 4, 3, 4);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Chat.Client - MainForm";
+            Text = "Chaliyo";
             ResumeLayout(false);
         }
         #endregion

@@ -17,6 +17,21 @@ namespace Chat.Client
         {
             InitializeComponent();
 
+            // 2) Şifre yıldızlı görünsün
+            txtPass.UseSystemPasswordChar = true; // (Designer’da da verebilirsin)
+
+            // 3) Enter = Giriş
+            this.AcceptButton = btnLogin; // Form genelinde Enter btnLogin’i tetikler
+            txtPass.KeyDown += (s, e) =>       // Ek güvence: ding sesini kes ve tıkla
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    btnLogin.PerformClick();
+                }
+            };
+
+            // ---- Eventler ----
             btnLogin.Click += async (_, __) => await DoAuthAsync(isRegister: false);
             btnRegister.Click += async (_, __) => await DoAuthAsync(isRegister: true);
         }

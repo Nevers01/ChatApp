@@ -47,7 +47,7 @@ namespace Chat.Client
             btnLogin.Name = "btnLogin";
             btnLogin.NoAccentTextColor = Color.Empty;
             btnLogin.Size = new Size(251, 51);
-            btnLogin.TabIndex = 10;
+            btnLogin.TabIndex = 2;
             btnLogin.Text = "Giriş Yap";
             btnLogin.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnLogin.UseAccentColor = false;
@@ -98,7 +98,7 @@ namespace Chat.Client
             txtPass.SelectionStart = 0;
             txtPass.ShortcutsEnabled = true;
             txtPass.Size = new Size(251, 48);
-            txtPass.TabIndex = 12;
+            txtPass.TabIndex = 1;
             txtPass.TabStop = false;
             txtPass.TextAlign = HorizontalAlignment.Left;
             txtPass.TrailingIcon = null;
@@ -140,7 +140,7 @@ namespace Chat.Client
             txtUser.SelectionStart = 0;
             txtUser.ShortcutsEnabled = true;
             txtUser.Size = new Size(251, 48);
-            txtUser.TabIndex = 14;
+            txtUser.TabIndex = 0;
             txtUser.TabStop = false;
             txtUser.TextAlign = HorizontalAlignment.Left;
             txtUser.TrailingIcon = null;
