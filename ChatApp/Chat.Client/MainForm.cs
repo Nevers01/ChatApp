@@ -75,10 +75,14 @@ namespace Chat.Client
             {
                 try
                 {
-                    if (_conn is null || _roomId is null || string.IsNullOrWhiteSpace(txtInput.Text))
+                    if (_conn is null || _conn.State != HubConnectionState.Connected)
+                    {
+                        lstMessages.Items.Add("[Hata] Hub bağlı değil.");
+                        return;
+                    }
+                    if (_roomId is null || string.IsNullOrWhiteSpace(txtInput.Text))
                         return;
 
-                    // Server şu an (userId, roomId, text) alıyor; sadeleştirirsen "text" tek parametreye geçeriz
                     await _conn.InvokeAsync("SendMessage", _userId, _roomId.Value, txtInput.Text);
                     txtInput.Clear();
                 }
@@ -121,6 +125,21 @@ namespace Chat.Client
                 });
             });
 
+            _conn.Closed += async (ex) =>
+            {
+                BeginInvoke(() => lstMessages.Items.Add("[Sistem] Hub bağlantısı kapandı, yeniden deneniyor..."));
+            };
+
+            _conn.Reconnected += (id) =>
+            {
+                BeginInvoke(() =>
+                {
+                    lstMessages.Items.Add("[Sistem] Hub yeniden bağlandı.");
+                    if (_roomId != null) btnSend.Enabled = true;
+                });
+                return Task.CompletedTask;
+            };
+
             await _conn.StartAsync();
             lstMessages.Items.Add("[Sistem] Hub bağlantısı kuruldu.");
         }
@@ -139,10 +158,17 @@ namespace Chat.Client
 
         private async Task JoinRoom(Guid roomId, string roomName)
         {
+            if (_conn is null || _conn.State != HubConnectionState.Connected)
+            {
+                lstMessages.Items.Add("[Hata] Hub bağlı değil (join).");
+                return;
+            }
+
             _roomId = roomId;
-            lstMessages.Items.Clear(); // odayı değiştirince sohbet penceresini temizle (opsiyonel)
-            await _conn!.InvokeAsync("JoinRoom", _userId, roomId);
+            lstMessages.Items.Clear();
+            await _conn.InvokeAsync("JoinRoom", _userId, roomId);
             lstMessages.Items.Add($"[Sistem] Odaya katıldın: {roomName}");
+            btnSend.Enabled = true;
         }
 
         private record ComboItem(Guid Id, string Text)

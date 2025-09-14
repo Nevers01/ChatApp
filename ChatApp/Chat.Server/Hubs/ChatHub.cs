@@ -4,6 +4,7 @@ using Chat.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace Chat.Server.Hubs
 {
@@ -28,12 +29,24 @@ namespace Chat.Server.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task JoinRoom(Guid userId, Guid roomId, string name)
+        public async Task JoinRoom(Guid userId, Guid roomId)
         {
             var exists = await _db.Rooms.AnyAsync(r => r.Id == roomId && r.IsActive);
             if (!exists)
             {
                 await Clients.Caller.SendAsync("SystemInfo", "Oda bulunamadı veya aktif değil.");
+                return;
+            }
+
+            // Kullanıcı adı
+            var name = await _db.Users
+                .Where(u => u.Id == userId)
+                .Select(u => u.UserName)
+                .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                await Clients.Caller.SendAsync("SystemInfo", "Kullanıcı bulunamadı.");
                 return;
             }
 
@@ -44,8 +57,9 @@ namespace Chat.Server.Hubs
                 if (InMemoryState.RoomOnlineUsers.TryGetValue(prev.RoomId, out var prevSet))
                 {
                     prevSet.TryRemove(prev.UserId, out _);
-                    await SendUserList(prev.RoomId); // eski odaya güncel listeyi yolla
-                    await Clients.Group(prev.RoomId.ToString()).SendAsync("SystemInfo", $"Kullanıcı {prev.UserId} ayrıldı");
+                    await SendUserList(prev.RoomId);
+                    // Ayrılanın adını da göstermek istersen DB'den çekebilirsin
+                    await Clients.Group(prev.RoomId.ToString()).SendAsync("SystemInfo", $"Kullanıcı ayrıldı");
                 }
             }
 
@@ -60,25 +74,52 @@ namespace Chat.Server.Hubs
             await Clients.Group(roomId.ToString()).SendAsync("SystemInfo", $"Kullanıcı {name} katıldı");
         }
 
-        public async Task SendMessage(string text)
+        public async Task SendMessage(Guid userId, Guid roomIdIgnored, string text)
         {
             if (string.IsNullOrWhiteSpace(text)) return;
-            if (!InMemoryState.Connections.TryGetValue(Context.ConnectionId, out var info)) return;
+
+            // Bağlantıdan user/room’u al
+            if (!InMemoryState.Connections.TryGetValue(Context.ConnectionId, out var info))
+                return;
 
             var boundUserId = info.UserId;
             var boundRoomId = info.RoomId;
 
+            // Güvenlik: client’tan gelen userId eşleşmeli
+            if (boundUserId != userId) return;
+
+            // Oda ve kullanıcı gerçekten var mı?
+            var roomExists = await _db.Rooms.AnyAsync(r => r.Id == boundRoomId && r.IsActive);
+            if (!roomExists) { await Clients.Caller.SendAsync("SystemInfo", "Oda bulunamadı."); return; }
+
             var user = await _db.Users
-                .Where(u => u.Id == boundUserId)
-                .Select(u => new { u.Id, u.UserName })
-                .FirstOrDefaultAsync();
-            if (user is null) return;
+                                .Where(u => u.Id == boundUserId)
+                                .Select(u => new { u.Id, u.UserName })
+                                .FirstOrDefaultAsync();
+            if (user is null) { await Clients.Caller.SendAsync("SystemInfo", "Kullanıcı bulunamadı."); return; }
 
-            _db.Messages.Add(new Chat.Domain.Message { RoomId = boundRoomId, UserId = boundUserId, Text = text });
-            await _db.SaveChangesAsync();
+            try
+            {
+                // 🔴 Önemli: Id/CreatedAt NULL kalmasın
+                _db.Messages.Add(new Chat.Domain.Message
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow,
+                    RoomId = boundRoomId,
+                    UserId = boundUserId,
+                    Text = text
+                });
+                await _db.SaveChangesAsync();
 
-            var dto = new MessageDto(boundRoomId, boundUserId, user.UserName, text, DateTime.UtcNow);
-            await Clients.Group(boundRoomId.ToString()).SendAsync("Message", dto);
+                var dto = new MessageDto(boundRoomId, boundUserId, user.UserName, text, DateTime.UtcNow);
+                await Clients.Group(boundRoomId.ToString()).SendAsync("Message", dto);
+            }
+            catch (Exception ex)
+            {
+                // Hata nedenini client’a bildir (geçici tanılama)
+                await Clients.Caller.SendAsync("SystemInfo", $"Mesaj kaydı başarısız: {ex.Message}");
+                throw; // SignalR, client’ta "Failed to invoke..." görür; log için kalsın
+            }
         }
 
         // odadaki online kullanıcı listesini yayınlar
