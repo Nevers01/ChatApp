@@ -41,10 +41,9 @@ ChatApp/
 ---
 
 ## 📸 Ekran Görüntüleri
-> Buraya login form ve chat ekranı screenshotlarını ekleyebilirsin:  
 ```md
-![Login] https://prnt.sc/l1jUmTiuGQqm
-![Chat] https://prnt.sc/yWTWtXSme6AO
+[Login] https://prnt.sc/l1jUmTiuGQqm
+[Chat] https://prnt.sc/yWTWtXSme6AO
 ```
 
 ---
