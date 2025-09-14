@@ -17,6 +17,7 @@ D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Microsoft.
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Microsoft.Extensions.Logging.Abstractions.dll
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Microsoft.Extensions.Options.dll
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Microsoft.Extensions.Primitives.dll
+D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\ReaLTaiizor.dll
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\System.IO.Pipelines.dll
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Chat.Contracts.dll
 D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\Chat.Contracts.pdb

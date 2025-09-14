@@ -1,6 +1,10 @@
 ﻿using Chat.Contracts;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
+using ReaLTaiizor.Child.Material;
+
+// ReaLTaiizor (Material) listbox için:
+using ReaLTaiizor.Controls;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -17,7 +21,7 @@ namespace Chat.Client
         private HubConnection? _conn;
         private Guid? _roomId;
 
-        // HTTP JSON deserialize için ortak ayar (camelCase)
+        // HTTP JSON deserialize için ortak ayar (camelCase toleranslı)
         private static readonly JsonSerializerOptions JsonOpts =
             new() { PropertyNameCaseInsensitive = true };
 
@@ -25,9 +29,10 @@ namespace Chat.Client
         {
             _userId = userId;
             _baseUrl = baseUrl;
+
             InitializeComponent();
 
-            // enter ile gönderme
+            // Enter ile gönder (Ctrl+Enter -> satır atlama istersen Multiline TextBox kullan)
             txtInput.KeyDown += TxtInput_KeyDown;
 
             btnSend.Enabled = false; // Join olmadan kapalı
@@ -46,8 +51,10 @@ namespace Chat.Client
                     using var http = new HttpClient();
                     var res = await http.PostAsync($"{_baseUrl}/match/random", null);
                     res.EnsureSuccessStatusCode();
+
                     var json = await res.Content.ReadAsStringAsync();
                     var rnd = JsonSerializer.Deserialize<RandomJoinResponse>(json, JsonOpts)!;
+
                     await JoinRoom(rnd.RoomId, rnd.RoomName);
                     btnSend.Enabled = true;
                 }
@@ -77,17 +84,13 @@ namespace Chat.Client
             btnSend.Click += async (_, __) => await SendFromInputAsync();
         }
 
-        // ENTER = gönder, CTRL+ENTER = yeni satır
+        // ENTER = gönder, CTRL+ENTER = (opsiyonel yeni satır)
         private async void TxtInput_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && !e.Control)
             {
-                e.SuppressKeyPress = true; // ding sesini engelle
+                e.SuppressKeyPress = true;   // ding sesini engelle
                 await SendFromInputAsync();
-            }
-            else if (e.KeyCode == Keys.Enter && e.Control)
-            {
-                // çok satırlı ise yeni satır ekleyebilirsin; tek satırlı textbox'ta gerek yok
             }
         }
 
@@ -137,18 +140,25 @@ namespace Chat.Client
             {
                 BeginInvoke(() =>
                 {
-                    lstUsers.Items.Clear();
-                    foreach (var u in users) lstUsers.Items.Add(u.UserName);
+                    // lstUsers MaterialListBox ise item tipini MaterialListBoxItem olarak ekle
+                    if (lstUsers is MaterialListBox mlb)
+                    {
+                        mlb.Items.Clear();
+                        foreach (var u in users)
+                            mlb.Items.Add(new MaterialListBoxItem(u.UserName));
+                    }
                 });
             });
 
-            _conn.Closed += async (ex) =>
+            // await yoksa Task döndür (CS1998 uyarısını önle)
+            _conn.Closed += (ex) =>
             {
                 BeginInvoke(() =>
                 {
                     btnSend.Enabled = false;
-                    AddSystem("Hub bağlantısı kapandı, yeniden deneniyor...");
+                    AddSystem("Hub bağlantısı kapandı, yeniden bağlanıyor...");
                 });
+                return Task.CompletedTask;
             };
 
             _conn.Reconnected += (id) =>
@@ -186,32 +196,41 @@ namespace Chat.Client
             }
 
             _roomId = roomId;
-            lstMessages.Items.Clear();
+            ClearMessages();
             await _conn.InvokeAsync("JoinRoom", _userId, roomId);
             AddSystem($"Odaya katıldın: {roomName}");
             btnSend.Enabled = true;
             txtInput.Focus(); // odak inputa
         }
 
-        // === UI yardımcıları ===
+        // ================= UI yardımcıları =================
+
+        private void ClearMessages()
+        {
+            // MaterialListBox'ta Items.Clear var
+            lstMessages.Items.Clear();
+        }
+
         private void AddChat(string user, string text)
         {
-            lstMessages.Items.Add($"{user}: {text}");
+            lstMessages.Items.Add(new MaterialListBoxItem($"{user}: {text}"));
             ScrollMessagesToBottom();
         }
 
         private void AddSystem(string text)
         {
-            lstMessages.Items.Add($"[Sistem] {text}");
+            lstMessages.Items.Add(new MaterialListBoxItem($"[Sistem] {text}"));
             ScrollMessagesToBottom();
         }
 
         private void ScrollMessagesToBottom()
         {
-            // otomatik en alta kaydır
             var count = lstMessages.Items.Count;
             if (count > 0)
-                lstMessages.TopIndex = count - 1;
+            {
+                lstMessages.SelectedIndex = count - 1;
+                lstMessages.SelectedIndex = -1;
+            }
         }
 
         private record ComboItem(Guid Id, string Text)

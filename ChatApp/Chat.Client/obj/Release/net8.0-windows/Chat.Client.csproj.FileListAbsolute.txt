@@ -35,3 +35,4 @@ D:\GithubProje\ChatApp\Chat.Client\obj\Release\net8.0-windows\Chat.Client.pdb
 D:\GithubProje\ChatApp\Chat.Client\obj\Release\net8.0-windows\Chat.Client.genruntimeconfig.cache
 D:\GithubProje\ChatApp\Chat.Client\obj\Release\net8.0-windows\ref\Chat.Client.dll
 D:\GithubProje\ChatApp\Chat.Client\obj\Release\net8.0-windows\Chat.Client.AuthForm.resources
+D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\ReaLTaiizor.dll

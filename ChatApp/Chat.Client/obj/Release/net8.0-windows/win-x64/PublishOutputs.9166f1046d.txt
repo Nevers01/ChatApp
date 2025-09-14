@@ -1,0 +1,3 @@
+D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\win-x64\Chat.Client.pdb
+D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\win-x64\Chat.Contracts.pdb
+D:\GithubProje\ChatApp\Chat.Client\bin\Release\net8.0-windows\publish\win-x64\Chat.Client.exe
