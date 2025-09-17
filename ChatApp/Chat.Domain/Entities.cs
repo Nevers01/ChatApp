@@ -10,6 +10,7 @@ namespace Chat.Domain
     {
         public Guid Id { get; set; }
         public string UserName { get; set; } = default!;
+        public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = default!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public bool IsBanned { get; set; }

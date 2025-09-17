@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8dT4n1U3xwI=",
+  "dgSpecHash": "hqrSHsHf1AI=",
   "success": true,
-  "projectFilePath": "D:\\GithubProje\\ChatApp\\Chat.Client\\Chat.Client.csproj",
+  "projectFilePath": "E:\\GithubProje\\ChatApp\\Chat.Client\\Chat.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nevers\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\8.0.20\\microsoft.aspnetcore.connections.abstractions.8.0.20.nupkg.sha512",
     "C:\\Users\\Nevers\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\8.0.20\\microsoft.aspnetcore.http.connections.client.8.0.20.nupkg.sha512",

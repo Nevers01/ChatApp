@@ -23,11 +23,12 @@ namespace Chat.Client
             lblPass = new ReaLTaiizor.Controls.MaterialLabel();
             txtUser = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             lblUser = new ReaLTaiizor.Controls.MaterialLabel();
+            chkShowPass = new ReaLTaiizor.Controls.MaterialCheckBox();
             SuspendLayout();
             // 
             // lblStatus
             // 
-            lblStatus.Location = new Point(178, 416);
+            lblStatus.Location = new Point(173, 413);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(144, 25);
             lblStatus.TabIndex = 9;
@@ -41,7 +42,7 @@ namespace Chat.Client
             btnLogin.HighEmphasis = true;
             btnLogin.Icon = null;
             btnLogin.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnLogin.Location = new Point(122, 287);
+            btnLogin.Location = new Point(117, 284);
             btnLogin.Margin = new Padding(4, 6, 4, 6);
             btnLogin.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnLogin.Name = "btnLogin";
@@ -62,7 +63,7 @@ namespace Chat.Client
             btnRegister.HighEmphasis = true;
             btnRegister.Icon = null;
             btnRegister.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnRegister.Location = new Point(153, 350);
+            btnRegister.Location = new Point(148, 347);
             btnRegister.Margin = new Padding(4, 6, 4, 6);
             btnRegister.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnRegister.Name = "btnRegister";
@@ -82,10 +83,10 @@ namespace Chat.Client
             txtPass.BackgroundImageLayout = ImageLayout.None;
             txtPass.CharacterCasing = CharacterCasing.Normal;
             txtPass.Depth = 0;
-            txtPass.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPass.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtPass.HideSelection = true;
             txtPass.LeadingIcon = null;
-            txtPass.Location = new Point(122, 210);
+            txtPass.Location = new Point(117, 213);
             txtPass.MaxLength = 32767;
             txtPass.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtPass.Name = "txtPass";
@@ -109,7 +110,7 @@ namespace Chat.Client
             lblPass.AutoSize = true;
             lblPass.Depth = 0;
             lblPass.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            lblPass.Location = new Point(122, 188);
+            lblPass.Location = new Point(117, 191);
             lblPass.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             lblPass.Name = "lblPass";
             lblPass.Size = new Size(34, 19);
@@ -127,7 +128,7 @@ namespace Chat.Client
             txtUser.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtUser.HideSelection = true;
             txtUser.LeadingIcon = null;
-            txtUser.Location = new Point(122, 120);
+            txtUser.Location = new Point(117, 123);
             txtUser.MaxLength = 32767;
             txtUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtUser.Name = "txtUser";
@@ -151,19 +152,37 @@ namespace Chat.Client
             lblUser.AutoSize = true;
             lblUser.Depth = 0;
             lblUser.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            lblUser.Location = new Point(122, 98);
+            lblUser.Location = new Point(117, 101);
             lblUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(89, 19);
             lblUser.TabIndex = 15;
             lblUser.Text = "Kullanıcı Adı";
             // 
+            // chkShowPass
+            // 
+            chkShowPass.AutoSize = true;
+            chkShowPass.Depth = 0;
+            chkShowPass.Location = new Point(371, 224);
+            chkShowPass.Margin = new Padding(0);
+            chkShowPass.MouseLocation = new Point(-1, -1);
+            chkShowPass.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            chkShowPass.Name = "chkShowPass";
+            chkShowPass.ReadOnly = false;
+            chkShowPass.Ripple = true;
+            chkShowPass.Size = new Size(130, 37);
+            chkShowPass.TabIndex = 16;
+            chkShowPass.Text = "Şifreyi Göster";
+            chkShowPass.UseAccentColor = false;
+            chkShowPass.UseVisualStyleBackColor = true;
+            // 
             // AuthForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(501, 474);
+            ClientSize = new Size(540, 474);
+            Controls.Add(chkShowPass);
             Controls.Add(lblUser);
             Controls.Add(txtUser);
             Controls.Add(lblPass);
@@ -183,5 +202,6 @@ namespace Chat.Client
         private ReaLTaiizor.Controls.MaterialLabel lblPass;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtUser;
         private ReaLTaiizor.Controls.MaterialLabel lblUser;
+        private ReaLTaiizor.Controls.MaterialCheckBox chkShowPass;
     }
 }

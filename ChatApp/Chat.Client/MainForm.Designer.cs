@@ -24,6 +24,8 @@ namespace Chat.Client
             btnJoinSelected = new ReaLTaiizor.Controls.MaterialButton();
             cmbRooms = new ReaLTaiizor.Controls.MaterialComboBox();
             btnRandom = new ReaLTaiizor.Controls.MaterialButton();
+            materialLabel1 = new ReaLTaiizor.Controls.MaterialLabel();
+            OnlRoomLbl = new ReaLTaiizor.Controls.MaterialLabel();
             SuspendLayout();
             // 
             // btnSend
@@ -102,7 +104,7 @@ namespace Chat.Client
             lstUsers.Name = "lstUsers";
             lstUsers.SelectedIndex = -1;
             lstUsers.SelectedItem = null;
-            lstUsers.Size = new Size(223, 359);
+            lstUsers.Size = new Size(223, 296);
             lstUsers.TabIndex = 10;
             // 
             // btnJoinSelected
@@ -157,7 +159,7 @@ namespace Chat.Client
             btnRandom.HighEmphasis = true;
             btnRandom.Icon = null;
             btnRandom.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnRandom.Location = new Point(846, 380);
+            btnRandom.Location = new Point(845, 353);
             btnRandom.Margin = new Padding(4, 6, 4, 6);
             btnRandom.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnRandom.Name = "btnRandom";
@@ -169,11 +171,36 @@ namespace Chat.Client
             btnRandom.UseAccentColor = false;
             btnRandom.UseVisualStyleBackColor = true;
             // 
+            // materialLabel1
+            // 
+            materialLabel1.AutoSize = true;
+            materialLabel1.Depth = 0;
+            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel1.Location = new Point(845, 328);
+            materialLabel1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialLabel1.Name = "materialLabel1";
+            materialLabel1.Size = new Size(75, 19);
+            materialLabel1.TabIndex = 14;
+            materialLabel1.Text = "Aktif Oda :";
+            // 
+            // OnlRoomLbl
+            // 
+            OnlRoomLbl.AutoSize = true;
+            OnlRoomLbl.Depth = 0;
+            OnlRoomLbl.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            OnlRoomLbl.Location = new Point(926, 328);
+            OnlRoomLbl.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            OnlRoomLbl.Name = "OnlRoomLbl";
+            OnlRoomLbl.Size = new Size(1, 0);
+            OnlRoomLbl.TabIndex = 15;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1081, 555);
+            Controls.Add(OnlRoomLbl);
+            Controls.Add(materialLabel1);
             Controls.Add(btnRandom);
             Controls.Add(cmbRooms);
             Controls.Add(btnJoinSelected);
@@ -186,6 +213,7 @@ namespace Chat.Client
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Chaliyo";
             ResumeLayout(false);
+            PerformLayout();
         }
         #endregion
 
@@ -196,5 +224,7 @@ namespace Chat.Client
         private ReaLTaiizor.Controls.MaterialButton btnJoinSelected;
         private ReaLTaiizor.Controls.MaterialComboBox cmbRooms;
         private ReaLTaiizor.Controls.MaterialButton btnRandom;
+        private ReaLTaiizor.Controls.MaterialLabel materialLabel1;
+        private ReaLTaiizor.Controls.MaterialLabel OnlRoomLbl;
     }
 }

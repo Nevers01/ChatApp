@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace Chat.Client
 {
@@ -17,12 +16,12 @@ namespace Chat.Client
         {
             InitializeComponent();
 
-            // 2) Şifre yıldızlı görünsün
-            txtPass.UseSystemPasswordChar = true; // (Designer’da da verebilirsin)
+            // Şifre gizli
+            txtPass.UseSystemPasswordChar = true;
 
-            // 3) Enter = Giriş
-            this.AcceptButton = btnLogin; // Form genelinde Enter btnLogin’i tetikler
-            txtPass.KeyDown += (s, e) =>       // Ek güvence: ding sesini kes ve tıkla
+            // Enter = Login
+            this.AcceptButton = btnLogin;
+            txtPass.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
                 {
@@ -31,60 +30,53 @@ namespace Chat.Client
                 }
             };
 
-            // ---- Eventler ----
-            btnLogin.Click += async (_, __) => await DoAuthAsync(isRegister: false);
-            btnRegister.Click += async (_, __) => await DoAuthAsync(isRegister: true);
+            btnLogin.Click += async (_, __) => await DoLoginAsync();
+
+            // "Kayıt Ol" → RegisterForm'u aç
+            btnRegister.Click += (_, __) =>
+            {
+                using var rf = new RegisterForm(BaseUrl);  // BaseUrl’ini AuthForm’da zaten tutuyorsun
+                var r = rf.ShowDialog(this);               // modal (splash gibi)
+                if (r == DialogResult.OK && rf.RegisteredAuth is not null)
+                {
+                    // Kayıt başarılı → istersen direkt login kabul edip ana forma geç
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                // else: kullanıcı pencereyi kapatmıştır; AuthForm açık kalır
+            };
         }
 
-        private async Task DoAuthAsync(bool isRegister)
+        private async Task DoLoginAsync()
         {
             lblStatus.Text = "";
-            var baseUrl = BaseUrl;
             var user = txtUser.Text.Trim();
             var pass = txtPass.Text;
 
-            if (string.IsNullOrWhiteSpace(baseUrl) || string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(pass))
+            if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(pass))
             {
-                lblStatus.Text = "Lütfen tüm alanları doldur.";
+                lblStatus.Text = "Kullanıcı ve şifre zorunlu.";
                 return;
             }
 
             try
             {
-                using var http = new HttpClient { BaseAddress = new Uri(baseUrl) };
-
-                AuthResponse? auth = null;
-
-                if (isRegister)
+                using var http = new HttpClient { BaseAddress = new Uri(BaseUrl) };
+                var resp = await http.PostAsJsonAsync("/auth/login", new LoginRequest(user, pass));
+                if (!resp.IsSuccessStatusCode)
                 {
-                    var regResp = await http.PostAsJsonAsync("/auth/register", new RegisterRequest(user, pass));
-                    if (!regResp.IsSuccessStatusCode)
-                    {
-                        lblStatus.Text = $"Kayıt başarısız: {(int)regResp.StatusCode}";
-                        return;
-                    }
-                    auth = await regResp.Content.ReadFromJsonAsync<AuthResponse>();
-                }
-                else
-                {
-                    var loginResp = await http.PostAsJsonAsync("/auth/login", new LoginRequest(user, pass));
-                    if (!loginResp.IsSuccessStatusCode)
-                    {
-                        lblStatus.Text = "Giriş başarısız (kullanıcı/şifre?).";
-                        return;
-                    }
-                    auth = await loginResp.Content.ReadFromJsonAsync<AuthResponse>();
+                    lblStatus.Text = "Giriş başarısız (kullanıcı/şifre?).";
+                    return;
                 }
 
-                if (auth == null)
+                var auth = await resp.Content.ReadFromJsonAsync<AuthResponse>();
+                if (auth is null)
                 {
-                    lblStatus.Text = "Sunucudan geçerli yanıt alınamadı.";
+                    lblStatus.Text = "Sunucu yanıtı okunamadı.";
                     return;
                 }
 
                 AuthenticatedUserId = auth.UserId;
-
-                // Başarılı → MainForm’a geç
                 DialogResult = DialogResult.OK;
                 Close();
             }

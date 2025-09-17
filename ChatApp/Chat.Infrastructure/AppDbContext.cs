@@ -25,6 +25,9 @@ namespace Chat.Infrastructure
             b.Entity<User>()
                 .HasIndex(x => x.UserName)
                 .IsUnique();
+            b.Entity<User>()
+                .HasIndex(x => x.Email)
+                .IsUnique();
 
             b.Entity<RoomMember>()
                 .HasOne(rm => rm.Room).WithMany(r => r.RoomMembers).HasForeignKey(rm => rm.RoomId);

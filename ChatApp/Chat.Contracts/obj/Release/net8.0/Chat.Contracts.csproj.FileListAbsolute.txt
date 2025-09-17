@@ -10,3 +10,15 @@ D:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.dll
 D:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\refint\Chat.Contracts.dll
 D:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.pdb
 D:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\ref\Chat.Contracts.dll
+E:\GithubProje\ChatApp\Chat.Contracts\bin\Release\net8.0\Chat.Contracts.deps.json
+E:\GithubProje\ChatApp\Chat.Contracts\bin\Release\net8.0\Chat.Contracts.dll
+E:\GithubProje\ChatApp\Chat.Contracts\bin\Release\net8.0\Chat.Contracts.pdb
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.AssemblyInfoInputs.cache
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.AssemblyInfo.cs
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.csproj.CoreCompileInputs.cache
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.sourcelink.json
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.dll
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\refint\Chat.Contracts.dll
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\Chat.Contracts.pdb
+E:\GithubProje\ChatApp\Chat.Contracts\obj\Release\net8.0\ref\Chat.Contracts.dll

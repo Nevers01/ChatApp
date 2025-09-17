@@ -39,28 +39,52 @@ using (var scope = app.Services.CreateScope())
 // --- AUTH ---
 app.MapPost("/auth/register", async (AppDbContext db, RegisterRequest req) =>
 {
-    var exists = await db.Users.AnyAsync(u => u.UserName == req.UserName);
-    if (exists) return Results.BadRequest("Kullanýcý adý mevcut");
+    // basit temizleme
+    var userName = (req.UserName ?? "").Trim();
+    var email = (req.Email ?? "").Trim();
+    var pass = (req.Password ?? "");
+
+    if (string.IsNullOrWhiteSpace(userName) ||
+        string.IsNullOrWhiteSpace(email) ||
+        string.IsNullOrWhiteSpace(pass))
+        return Results.BadRequest("Lütfen tüm alanlarý doldurun.");
+
+    // basit e-posta format kontrolü (ileri doðrulama client'ta da yapýlabilir)
+    if (!email.Contains("@") || !email.Contains("."))
+        return Results.BadRequest("Geçerli bir e-posta giriniz.");
+
+    var existsUser = await db.Users.AnyAsync(u => u.UserName == userName);
+    if (existsUser) return Results.BadRequest("Kullanýcý adý kullanýmda.");
+
+    // istersen email uniq ise:
+    // var existsMail = await db.Users.AnyAsync(u => u.Email == email);
+    // if (existsMail) return Results.BadRequest("Bu e-posta kayýtlý.");
 
     var user = new User
     {
-        Id = Guid.NewGuid(),
-        UserName = req.UserName.Trim(),
-        PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password)
+        UserName = userName,
+        Email = email,
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword(pass)
     };
     db.Users.Add(user);
     await db.SaveChangesAsync();
 
-    return Results.Ok(new AuthResponse(user.Id, user.UserName, user.Id.ToString()));
+    // demo token = userId
+    var auth = new AuthResponse(user.Id, user.UserName, user.Id.ToString());
+    return Results.Ok(auth);
 });
 
 app.MapPost("/auth/login", async (AppDbContext db, LoginRequest req) =>
 {
-    var user = await db.Users.FirstOrDefaultAsync(u => u.UserName == req.UserName);
-    if (user == null || !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
+    var userName = (req.UserName ?? "").Trim();
+    var pass = (req.Password ?? "");
+
+    var user = await db.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+    if (user == null || !BCrypt.Net.BCrypt.Verify(pass, user.PasswordHash))
         return Results.Unauthorized();
 
-    return Results.Ok(new AuthResponse(user.Id, user.UserName, user.Id.ToString()));
+    var auth = new AuthResponse(user.Id, user.UserName, user.Id.ToString());
+    return Results.Ok(auth);
 });
 
 // --- ROOMS & MATCH ---

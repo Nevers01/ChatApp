@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace Chat.Client
 {
@@ -52,10 +53,15 @@ namespace Chat.Client
                     var res = await http.PostAsync($"{_baseUrl}/match/random", null);
                     res.EnsureSuccessStatusCode();
 
+                    var jsons = await http.GetStringAsync($"{_baseUrl}/rooms");
+                    var rooms = JsonSerializer.Deserialize<System.Collections.Generic.List<RoomDto>>(jsons, JsonOpts)!;
+
                     var json = await res.Content.ReadAsStringAsync();
                     var rnd = JsonSerializer.Deserialize<RandomJoinResponse>(json, JsonOpts)!;
-
+                    var items = rooms.FirstOrDefault(r => rnd.RoomName == r.Name);
                     await JoinRoom(rnd.RoomId, rnd.RoomName);
+                    await LoadRooms(); // online sayısı güncellenir
+                    OnlRoomLbl.Text = rnd.RoomName + items.OnlineCount;
                     btnSend.Enabled = true;
                 }
                 catch (Exception ex)
@@ -70,8 +76,16 @@ namespace Chat.Client
                 {
                     if (cmbRooms.SelectedItem is ComboItem item)
                     {
+                        using var http = new HttpClient();
+                        var json = await http.GetStringAsync($"{_baseUrl}/rooms");
+                        var rooms = JsonSerializer.Deserialize<System.Collections.Generic.List<RoomDto>>(json, JsonOpts)!;
+
+                        var items = rooms.FirstOrDefault(r => item.Text == r.Name);
+
                         btnSend.Enabled = false;
                         await JoinRoom(item.Id, item.Text);
+                        await LoadRooms(); // online sayısı güncellenir
+                        OnlRoomLbl.Text = item.Text + items.OnlineCount;
                         btnSend.Enabled = true;
                     }
                 }
